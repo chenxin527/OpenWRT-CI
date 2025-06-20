@@ -91,8 +91,8 @@ jobs:
           echo "WRT_TARGET=$(grep -m 1 -oP '^CONFIG_TARGET_\K[\w]+(?=\=y)' ./Config/$WRT_CONFIG.txt)" >> $GITHUB_ENV
           echo "WRT_KVER=none" >> $GITHUB_ENV
           echo "WRT_LIST=none" >> $GITHUB_ENV
-          echo "WRT_CONFIG_TARGET=${WRT_CONFIG%%-*}"
-          echo "WRT_CONFIG_WIFI=${WRT_CONFIG#*-}"
+          echo "WRT_CONFIG_TARGET=${WRT_CONFIG%%-*}" >> $GITHUB_ENV
+          echo "WRT_CONFIG_WIFI=${WRT_CONFIG#*-}" >> $GITHUB_ENV
 
       - name: Clone Code
         run: |
@@ -216,6 +216,7 @@ jobs:
               EXT=$(basename $FILE | cut -d '.' -f 2-)
               NAME=$(basename $FILE | cut -d '.' -f 1 | grep -io "\($WRT_TARGET\).*")
               NEW_FILE="$WRT_NAME"-"$WRT_CONFIG_WIFI"-"$WRT_INFO"-"$WRT_BRANCH"-"$NAME"-"$WRT_DATE"."$EXT"
+              echo $NEW_FILE
               mv -f $FILE ./upload/$NEW_FILE
             done
 
