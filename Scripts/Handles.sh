@@ -75,3 +75,12 @@ if [ -f "$RUST_FILE" ]; then
 
 	cd $PKG_PATH && echo "rust has been fixed!"
 fi
+
+#集成OpenClash内核
+curl -sL -m 30 --retry 2 https://raw.githubusercontent.com/vernesong/OpenClash/core/master/meta/clash-linux-"$CPU_MODEL".tar.gz -o /tmp/clash.tar.gz
+tar zxvf /tmp/clash.tar.gz -C /tmp >/dev/null 2>&1
+chmod +x /tmp/clash >/dev/null 2>&1
+mkdir -p ./luci-app-openclash/files/etc/openclash/core
+mv /tmp/clash ./luci-app-openclash/files/etc/openclash/core/clash_meta >/dev/null 2>&1
+rm -rf /tmp/clash.tar.gz >/dev/null 2>&1
+cd $PKG_PATH && echo "OpenClash core has been installed!"
