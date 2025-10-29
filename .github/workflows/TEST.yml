@@ -1,0 +1,24 @@
+#CI项目
+name: TEST
+
+#CI计划
+on:
+  workflow_dispatch:
+
+#CI权限
+permissions: write-all
+
+#CI任务
+jobs:
+  core:
+    name: ${{inputs.WRT_SOURCE}}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Projects
+        uses: actions/checkout@main
+
+      - name: Initialization Environment
+        env:
+          DEBIAN_FRONTEND: noninteractive
+        run: |
+          cat /etc/apt/sources.list
