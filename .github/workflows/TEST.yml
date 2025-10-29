@@ -21,4 +21,4 @@ jobs:
         env:
           DEBIAN_FRONTEND: noninteractive
         run: |
-          cat /etc/apt/sources.list.d/ubuntu.sources
+          cat /etc/apt/apt-mirrors.txt
